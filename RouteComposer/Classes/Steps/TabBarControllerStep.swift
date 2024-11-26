@@ -13,7 +13,7 @@
 import UIKit
 
 /// Default tab bar container step
-public final class TabBarControllerStep<VC: UITabBarController, Context>: SingleContainerStep<NilFinder<VC, Context>, TabBarControllerFactory<VC, Context>> {
+@MainActor public final class TabBarControllerStep<VC: UITabBarController, Context>: SingleContainerStep<NilFinder<VC, Context>, TabBarControllerFactory<VC, Context>> {
 
     // MARK: Methods
 

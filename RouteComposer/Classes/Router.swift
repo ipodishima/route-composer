@@ -25,10 +25,10 @@ public protocol Router {
     ///   - context: `Context` instance.
     ///   - animated: if true - the navigation should be animated where it is possible.
     ///   - completion: completion block.
-    func navigate<ViewController: UIViewController, Context>(to step: DestinationStep<ViewController, Context>,
-                                                             with context: Context,
-                                                             animated: Bool,
-                                                             completion: ((_: RoutingResult) -> Void)?) throws
+    @MainActor func navigate<ViewController: UIViewController, Context>(to step: DestinationStep<ViewController, Context>,
+                                                                        with context: Context,
+                                                                        animated: Bool,
+                                                                        completion: ((_: RoutingResult) -> Void)?) throws
 
 }
 
@@ -42,9 +42,9 @@ public extension Router {
     ///   - step: `DestinationStep` instance.
     ///   - animated: if true - the navigation should be animated where it is possible.
     ///   - completion: completion block.
-    func navigate(to step: DestinationStep<some UIViewController, Any?>,
-                  animated: Bool,
-                  completion: ((_: RoutingResult) -> Void)?) throws {
+    @MainActor func navigate(to step: DestinationStep<some UIViewController, Any?>,
+                             animated: Bool,
+                             completion: ((_: RoutingResult) -> Void)?) throws {
         try navigate(to: step, with: nil, animated: animated, completion: completion)
     }
 
@@ -54,9 +54,9 @@ public extension Router {
     ///   - step: `DestinationStep` instance.
     ///   - animated: if true - the navigation should be animated where it is possible.
     ///   - completion: completion block.
-    func navigate(to step: DestinationStep<some UIViewController, Void>,
-                  animated: Bool,
-                  completion: ((_: RoutingResult) -> Void)?) throws {
+    @MainActor func navigate(to step: DestinationStep<some UIViewController, Void>,
+                             animated: Bool,
+                             completion: ((_: RoutingResult) -> Void)?) throws {
         try navigate(to: step, with: (), animated: animated, completion: completion)
     }
 
@@ -74,10 +74,10 @@ public extension Router {
     ///   - context: `Context` instance.
     ///   - animated: if true - the navigation should be animated where it is possible.
     ///   - completion: completion block.
-    func commitNavigation<Context>(to step: DestinationStep<some UIViewController, Context>,
-                                   with context: Context,
-                                   animated: Bool,
-                                   completion: ((RoutingResult) -> Void)?) {
+    @MainActor func commitNavigation<Context>(to step: DestinationStep<some UIViewController, Context>,
+                                              with context: Context,
+                                              animated: Bool,
+                                              completion: ((RoutingResult) -> Void)?) {
         do {
             try navigate(to: step, with: context, animated: animated, completion: completion)
         } catch {
@@ -92,9 +92,9 @@ public extension Router {
     ///   - step: `DestinationStep` instance.
     ///   - animated: if true - the navigation should be animated where it is possible.
     ///   - completion: completion block.
-    func commitNavigation(to step: DestinationStep<some UIViewController, Any?>,
-                          animated: Bool,
-                          completion: ((RoutingResult) -> Void)?) {
+    @MainActor func commitNavigation(to step: DestinationStep<some UIViewController, Any?>,
+                                     animated: Bool,
+                                     completion: ((RoutingResult) -> Void)?) {
         commitNavigation(to: step, with: nil, animated: animated, completion: completion)
     }
 
@@ -105,9 +105,9 @@ public extension Router {
     ///   - step: `DestinationStep` instance.
     ///   - animated: if true - the navigation should be animated where it is possible.
     ///   - completion: completion block.
-    func commitNavigation(to step: DestinationStep<some UIViewController, Void>,
-                          animated: Bool,
-                          completion: ((RoutingResult) -> Void)?) {
+    @MainActor func commitNavigation(to step: DestinationStep<some UIViewController, Void>,
+                                     animated: Bool,
+                                     completion: ((RoutingResult) -> Void)?) {
         commitNavigation(to: step, with: (), animated: animated, completion: completion)
     }
 

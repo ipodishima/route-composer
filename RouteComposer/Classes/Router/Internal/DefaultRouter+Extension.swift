@@ -19,7 +19,7 @@ extension DefaultRouter {
 
         private var interceptors: [(interceptor: AnyRoutingInterceptor, context: AnyContext)]
 
-        init(interceptors: [AnyRoutingInterceptor], with context: AnyContext) throws {
+        @MainActor init(interceptors: [AnyRoutingInterceptor], with context: AnyContext) throws {
             self.interceptors = try interceptors.map {
                 var interceptor = $0
                 try interceptor.prepare(with: context)
@@ -27,13 +27,13 @@ extension DefaultRouter {
             }
         }
 
-        mutating func add(_ interceptor: AnyRoutingInterceptor, with context: AnyContext) throws {
+        @MainActor mutating func add(_ interceptor: AnyRoutingInterceptor, with context: AnyContext) throws {
             var interceptor = interceptor
             try interceptor.prepare(with: context)
             interceptors.append((interceptor: interceptor, context: context))
         }
 
-        func perform(completion: @escaping (_: RoutingResult) -> Void) {
+        @MainActor func perform(completion: @escaping (_: RoutingResult) -> Void) {
             guard !interceptors.isEmpty else {
                 completion(.success)
                 return
@@ -62,7 +62,7 @@ extension DefaultRouter {
 
         var contextTasks: [AnyContextTask]
 
-        init(contextTasks: [AnyContextTask], with context: AnyContext) throws {
+        @MainActor init(contextTasks: [AnyContextTask], with context: AnyContext) throws {
             self.contextTasks = try contextTasks.map {
                 var contextTask = $0
                 try contextTask.prepare(with: context)
@@ -70,13 +70,13 @@ extension DefaultRouter {
             }
         }
 
-        mutating func add(_ contextTask: AnyContextTask, with context: AnyContext) throws {
+        @MainActor mutating func add(_ contextTask: AnyContextTask, with context: AnyContext) throws {
             var contextTask = contextTask
             try contextTask.prepare(with: context)
             contextTasks.append(contextTask)
         }
 
-        func perform(on viewController: UIViewController, with context: AnyContext) throws {
+        @MainActor func perform(on viewController: UIViewController, with context: AnyContext) throws {
             try contextTasks.forEach {
                 try $0.perform(on: viewController, with: context)
             }
@@ -123,7 +123,7 @@ extension DefaultRouter {
             self.context = context
         }
 
-        func perform(on viewController: UIViewController) throws {
+        @MainActor func perform(on viewController: UIViewController) throws {
             try contextTaskRunner.perform(on: viewController, with: context)
             try postTaskRunner.perform(on: viewController, with: context)
         }
@@ -197,7 +197,7 @@ extension DefaultRouter {
             self.postTaskRunner = postTaskRunner
         }
 
-        final func taskRunner(for step: PerformableStep?, with context: AnyContext) throws -> StepTaskTaskRunner {
+        @MainActor final func taskRunner(for step: PerformableStep?, with context: AnyContext) throws -> StepTaskTaskRunner {
             guard let interceptableStep = step as? InterceptableStep else {
                 return StepTaskTaskRunner(contextTaskRunner: self.contextTaskRunner, postTaskRunner: self.postTaskRunner, context: context)
             }
@@ -215,7 +215,7 @@ extension DefaultRouter {
             return StepTaskTaskRunner(contextTaskRunner: contextTaskRunner, postTaskRunner: postTaskRunner, context: context)
         }
 
-        final func performInterceptors(completion: @escaping (_: RoutingResult) -> Void) {
+        @MainActor final func performInterceptors(completion: @escaping (_: RoutingResult) -> Void) {
             interceptorRunner.perform(completion: completion)
         }
 
@@ -278,7 +278,7 @@ extension DefaultRouter {
             self.containerAdapterLocator = containerAdapterLocator
         }
 
-        final func update(containerViewController: ContainerViewController, animated: Bool, completion: @escaping (_: RoutingResult) -> Void) {
+        @MainActor final func update(containerViewController: ContainerViewController, animated: Bool, completion: @escaping (_: RoutingResult) -> Void) {
             do {
                 guard self.containerViewController == nil else {
                     purge(animated: animated, completion: { result in
@@ -336,7 +336,7 @@ extension DefaultRouter {
             }
         }
 
-        private final func reset() {
+        @MainActor private final func reset() {
             containerViewController = nil
             postponedViewControllers = []
         }

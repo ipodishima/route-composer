@@ -53,7 +53,7 @@ struct FailingRouter<R>: Router where R: Router {
         }
     }
 
-    private func failIfNeeded(error: Error) {
+    @MainActor private func failIfNeeded(error: Error) {
         guard failOnError, !(error is FailingRouterIgnoreError) else {
             return
         }

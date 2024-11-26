@@ -34,14 +34,14 @@ public protocol SimpleContainerFactory: ContainerFactory {
     ///   - viewControllers: `UIViewController` instances to be integrated into the container as children view controllers
     /// - Returns: The built `UIViewController` container instance.
     /// - Throws: The `RoutingError` if the build does not succeed.
-    func build(with context: Context, integrating viewControllers: [UIViewController]) throws -> ViewController
+    @MainActor func build(with context: Context, integrating viewControllers: [UIViewController]) throws -> ViewController
 
 }
 
 public extension SimpleContainerFactory {
 
     /// Default implementation of the `ContainerFactory`'s `build` method
-    func build(with context: Context, integrating coordinator: ChildCoordinator) throws -> ViewController {
+    @MainActor func build(with context: Context, integrating coordinator: ChildCoordinator) throws -> ViewController {
         let viewControllers = try coordinator.build()
         return try build(with: context, integrating: viewControllers)
     }

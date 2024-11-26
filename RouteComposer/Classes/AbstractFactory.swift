@@ -35,7 +35,7 @@ public protocol AbstractFactory {
     /// - Parameter context: A `Context` instance that is provided to the `Router`.
     /// - Throws: The `RoutingError` if the `Factory` cannot prepare to build a `UIViewController` instance
     ///   with the `Context` instance provided.
-    mutating func prepare(with context: Context) throws
+    @MainActor mutating func prepare(with context: Context) throws
 
 }
 
@@ -44,7 +44,7 @@ public protocol AbstractFactory {
 public extension AbstractFactory where Context == Any? {
 
     /// Prepares the `AbstractFactory`
-    mutating func prepare() throws {
+    @MainActor mutating func prepare() throws {
         try prepare(with: nil)
     }
 
@@ -55,7 +55,7 @@ public extension AbstractFactory where Context == Any? {
 public extension AbstractFactory where Context == Void {
 
     /// Prepares the `AbstractFactory`
-    mutating func prepare() throws {
+    @MainActor mutating func prepare() throws {
         try prepare(with: ())
     }
 

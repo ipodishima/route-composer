@@ -15,8 +15,8 @@ import UIKit
 
 protocol AnyRoutingInterceptor {
 
-    mutating func prepare(with context: AnyContext) throws
+    @MainActor mutating func prepare(with context: AnyContext) throws
 
-    func perform(with context: AnyContext, completion: @escaping (_: RoutingResult) -> Void)
+    @MainActor func perform(with context: AnyContext, completion: @escaping (_: RoutingResult) -> Void)
 
 }

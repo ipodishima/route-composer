@@ -15,6 +15,6 @@ import UIKit
 
 protocol AnyFinder {
 
-    func findViewController(with context: AnyContext) throws -> UIViewController?
+    @MainActor func findViewController(with context: AnyContext) throws -> UIViewController?
 
 }

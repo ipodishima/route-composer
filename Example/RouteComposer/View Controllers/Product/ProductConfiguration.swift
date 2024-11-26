@@ -16,7 +16,7 @@ import UIKit
 
 class ProductConfiguration {
 
-    static let productScreen = StepAssembly(
+    @MainActor static let productScreen = StepAssembly(
         finder: ClassWithContextFinder<ProductViewController, ProductContext>(),
         factory: StoryboardFactory(name: "TabBar", identifier: "ProductViewController"))
         .adding(InlineInterceptor { (_: ProductContext) in
@@ -45,7 +45,7 @@ class ProductConfiguration {
         .assemble()
 
     // This path is used to test the transactions in presentations. Does not have any other purposes
-    static let productScreenFromCircle = StepAssembly(
+    @MainActor static let productScreenFromCircle = StepAssembly(
         finder: ClassWithContextFinder<ProductViewController, ProductContext>(),
         factory: NilFactory())
         .adding(ContextSettingTask())

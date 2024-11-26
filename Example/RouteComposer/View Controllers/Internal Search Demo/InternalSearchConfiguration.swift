@@ -15,7 +15,7 @@ import RouteComposer
 import UIKit
 
 struct InternalSearchConfiguration {
-    private static let completeFactory = CompleteFactoryAssembly(factory: TabBarControllerFactory())
+    @MainActor private static let completeFactory = CompleteFactoryAssembly(factory: TabBarControllerFactory())
         .with(CompleteFactoryAssembly(factory: NavigationControllerFactory<UINavigationController, MainScreenContext>(configuration: { $0.tabBarItem.title = "Home" /* One way */ }))
             .with(ClassFactory<HomeViewController, MainScreenContext>())
             .assemble())
@@ -27,7 +27,7 @@ struct InternalSearchConfiguration {
         })
         .assemble()
 
-    private static let mainScreenFromCircle = StepAssembly(
+    @MainActor private static let mainScreenFromCircle = StepAssembly(
         finder: NilFinder<UITabBarController, MainScreenContext>(),
         factory: completeFactory)
         // Comment `adding` and navigate to the Settings view controller to see the difference.
@@ -43,13 +43,13 @@ struct InternalSearchConfiguration {
             .from(ConfigurationHolder.configuration.circleScreen.expectingContainer())
             .assemble()
 
-    static let home = Destination(to: StepAssembly(
+    @MainActor static let home = Destination(to: StepAssembly(
         finder: ClassWithContextFinder<HomeViewController, MainScreenContext>(),
         factory: NilFactory())
         .from(mainScreenFromCircle)
         .assemble(), with: .home)
 
-    static let settings = Destination(to: StepAssembly(
+    @MainActor static let settings = Destination(to: StepAssembly(
         finder: ClassWithContextFinder<SettingsViewController, MainScreenContext>(),
         factory: NilFactory())
         .from(mainScreenFromCircle)

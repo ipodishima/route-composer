@@ -19,6 +19,6 @@ public protocol WindowProvider {
     // MARK: Properties to implement
 
     /// `UIWindow` instance
-    var window: UIWindow? { get }
+    @MainActor var window: UIWindow? { get }
 
 }

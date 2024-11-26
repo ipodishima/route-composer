@@ -21,11 +21,11 @@ public protocol RoutingInterceptable where Self: UIViewController {
     // MARK: Properties to implement
 
     /// true: if a view controller can be dismissed or covered by the `Router`, false otherwise.
-    var canBeDismissed: Bool { get }
+    @MainActor var canBeDismissed: Bool { get }
 
     /// Returns `UIViewController` that `Router` should consider as a parent `UIViewController`.
     /// It may be useful to override it when you are building complicated custom `ContainerViewController`s.
-    var overriddenParentViewController: UIViewController? { get }
+    @MainActor var overriddenParentViewController: UIViewController? { get }
 
 }
 
@@ -34,7 +34,7 @@ public protocol RoutingInterceptable where Self: UIViewController {
 public extension RoutingInterceptable {
 
     /// Default implementation returns regular `UIViewController.parent`
-    var overriddenParentViewController: UIViewController? {
+    @MainActor var overriddenParentViewController: UIViewController? {
         return parent
     }
 

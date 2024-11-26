@@ -66,8 +66,8 @@ public struct DefaultStackIterator: StackIterator {
     /// Deprecated Constructor.
     /// May create a conflict with default configuration. Please use `DefaultStackIterator.init(options:startingPoint:windowProvider:containerAdapterLocator:)`.
     @available(*, deprecated, message: "May create a conflict with default configuration. Please use init(options:startingPoint:windowProvider:containerAdapterLocator:)")
-    public init(options: SearchOptions = .fullStack,
-                startingPoint: StartingPoint = .topmost) {
+    @MainActor  public init(options: SearchOptions = .fullStack,
+                            startingPoint: StartingPoint = .topmost) {
         self.startingPoint = startingPoint
         self.options = options
         self.windowProvider = RouteComposerDefaults.shared.windowProvider
@@ -89,7 +89,7 @@ public struct DefaultStackIterator: StackIterator {
         return viewController
     }
 
-    func getStartingViewController() throws -> UIViewController? {
+    @MainActor func getStartingViewController() throws -> UIViewController? {
         switch startingPoint {
         case .topmost:
             return windowProvider.window?.topmostViewController

@@ -36,7 +36,7 @@ public struct ChildCoordinator {
     /// - Parameters:
     ///   - existingViewControllers: Current view controller stack of the container.
     /// - Returns: Built child view controller stack
-    public func build(integrating existingViewControllers: [UIViewController] = []) throws -> [UIViewController] {
+    @MainActor public func build(integrating existingViewControllers: [UIViewController] = []) throws -> [UIViewController] {
         var childrenViewControllers = existingViewControllers
         for factory in childFactories {
             try factory.factory.build(with: factory.context, in: &childrenViewControllers)

@@ -16,37 +16,37 @@ import RouteComposer
 import SwiftUI
 #endif
 
-let transitionController = BlurredBackgroundTransitionController()
+@MainActor let transitionController = BlurredBackgroundTransitionController()
 
 protocol ExampleScreenConfiguration {
 
-    var homeScreen: DestinationStep<UITabBarController, Any?> { get }
+    @MainActor  var homeScreen: DestinationStep<UITabBarController, Any?> { get }
 
-    var circleScreen: DestinationStep<CircleViewController, Any?> { get }
+    @MainActor var circleScreen: DestinationStep<CircleViewController, Any?> { get }
 
-    var squareScreen: DestinationStep<SquareViewController, Any?> { get }
+    @MainActor var squareScreen: DestinationStep<SquareViewController, Any?> { get }
 
-    var colorScreen: DestinationStep<ColorViewController, String> { get }
+    @MainActor var colorScreen: DestinationStep<ColorViewController, String> { get }
 
-    var starScreen: DestinationStep<StarViewController, Any?> { get }
+    @MainActor var starScreen: DestinationStep<StarViewController, Any?> { get }
 
-    var swiftUIScreen: DestinationStep<UIViewController, String> { get }
+    @MainActor var swiftUIScreen: DestinationStep<UIViewController, String> { get }
 
-    var routingSupportScreen: DestinationStep<RoutingRuleSupportViewController, String> { get }
+    @MainActor var routingSupportScreen: DestinationStep<RoutingRuleSupportViewController, String> { get }
 
-    var figuresScreen: DestinationStep<FiguresViewController, Any?> { get }
+    @MainActor var figuresScreen: DestinationStep<FiguresViewController, Any?> { get }
 
-    var secondModalScreen: DestinationStep<SecondModalLevelViewController, String> { get }
+    @MainActor var secondModalScreen: DestinationStep<SecondModalLevelViewController, String> { get }
 
-    var welcomeScreen: DestinationStep<PromptViewController, Any?> { get }
+    @MainActor var welcomeScreen: DestinationStep<PromptViewController, Any?> { get }
 
-    var figuresAndProductScreen: DestinationStep<ProductViewController, ProductContext> { get }
+    @MainActor var figuresAndProductScreen: DestinationStep<ProductViewController, ProductContext> { get }
 
 }
 
 extension ExampleScreenConfiguration {
 
-    var homeScreen: DestinationStep<UITabBarController, Any?> {
+    @MainActor var homeScreen: DestinationStep<UITabBarController, Any?> {
         StepAssembly(
             // As both factory and finder are generic, You have to provide with at least one instance
             // the type of the view controller and the context to be used. You do not need to do so if you are using at
@@ -59,7 +59,7 @@ extension ExampleScreenConfiguration {
             .assemble()
     }
 
-    var circleScreen: DestinationStep<CircleViewController, Any?> {
+    @MainActor var circleScreen: DestinationStep<CircleViewController, Any?> {
         StepAssembly(
             finder: ClassFinder<CircleViewController, Any?>(),
             factory: NilFactory())
@@ -68,7 +68,7 @@ extension ExampleScreenConfiguration {
             .assemble()
     }
 
-    var squareScreen: DestinationStep<SquareViewController, Any?> {
+    @MainActor var squareScreen: DestinationStep<SquareViewController, Any?> {
         StepAssembly(
             finder: ClassFinder<SquareViewController, Any?>(),
             factory: NilFactory())
@@ -77,7 +77,7 @@ extension ExampleScreenConfiguration {
             .assemble()
     }
 
-    var colorScreen: DestinationStep<ColorViewController, String> {
+    @MainActor var colorScreen: DestinationStep<ColorViewController, String> {
         StepAssembly(
             finder: ColorViewControllerFinder(),
             factory: ColorViewControllerFactory())
@@ -97,7 +97,7 @@ extension ExampleScreenConfiguration {
             .assemble()
     }
 
-    var routingSupportScreen: DestinationStep<RoutingRuleSupportViewController, String> {
+    @MainActor var routingSupportScreen: DestinationStep<RoutingRuleSupportViewController, String> {
         StepAssembly(
             finder: ClassFinder<RoutingRuleSupportViewController, String>(options: .currentAllStack),
             factory: StoryboardFactory(name: "TabBar", identifier: "RoutingRuleSupportViewController"))
@@ -109,7 +109,7 @@ extension ExampleScreenConfiguration {
             .assemble()
     }
 
-    var figuresScreen: DestinationStep<FiguresViewController, Any?> {
+    @MainActor var figuresScreen: DestinationStep<FiguresViewController, Any?> {
         StepAssembly(
             finder: ClassFinder<FiguresViewController, Any?>(),
             factory: StoryboardFactory(name: "TabBar", identifier: "FiguresViewController"))
@@ -120,7 +120,7 @@ extension ExampleScreenConfiguration {
             .assemble()
     }
 
-    var secondModalScreen: DestinationStep<SecondModalLevelViewController, String> {
+    @MainActor var secondModalScreen: DestinationStep<SecondModalLevelViewController, String> {
         StepAssembly(
             finder: ClassFinder<SecondModalLevelViewController, String>(),
             factory: StoryboardFactory(name: "TabBar", identifier: "SecondModalLevelViewController"))
@@ -135,7 +135,7 @@ extension ExampleScreenConfiguration {
             .assemble()
     }
 
-    var welcomeScreen: DestinationStep<PromptViewController, Any?> {
+    @MainActor var welcomeScreen: DestinationStep<PromptViewController, Any?> {
         StepAssembly(
             finder: ClassFinder<PromptViewController, Any?>(),
             factory: StoryboardFactory(name: "PromptScreen"))
@@ -145,7 +145,7 @@ extension ExampleScreenConfiguration {
             .assemble()
     }
 
-    var figuresAndProductScreen: DestinationStep<ProductViewController, ProductContext> {
+    @MainActor var figuresAndProductScreen: DestinationStep<ProductViewController, ProductContext> {
         StepAssembly(
             finder: ClassWithContextFinder<ProductViewController, ProductContext>(),
             factory: StoryboardFactory(name: "TabBar", identifier: "ProductViewController"))
@@ -154,7 +154,7 @@ extension ExampleScreenConfiguration {
             .assemble(from: figuresScreen.expectingContainer())
     }
 
-    var swiftUIScreen: DestinationStep<UIViewController, String> {
+    @MainActor var swiftUIScreen: DestinationStep<UIViewController, String> {
         guard #available(iOS 13.0, *) else {
             return starScreen.unsafelyRewrapped()
         }
@@ -172,7 +172,7 @@ extension ExampleScreenConfiguration {
 
 struct ExampleConfiguration: ExampleScreenConfiguration {
 
-    var starScreen: DestinationStep<StarViewController, Any?> {
+    @MainActor var starScreen: DestinationStep<StarViewController, Any?> {
         StepAssembly(
             finder: ClassFinder<StarViewController, Any?>(options: .currentAllStack),
             factory: ClassFactory())
@@ -187,7 +187,7 @@ struct ExampleConfiguration: ExampleScreenConfiguration {
 
 struct AlternativeExampleConfiguration: ExampleScreenConfiguration {
 
-    var starScreen: DestinationStep<StarViewController, Any?> {
+    @MainActor var starScreen: DestinationStep<StarViewController, Any?> {
         StepAssembly(
             finder: ClassFinder<StarViewController, Any?>(options: .currentAllStack),
             factory: ClassFactory())
@@ -203,6 +203,6 @@ struct AlternativeExampleConfiguration: ExampleScreenConfiguration {
 enum ConfigurationHolder {
 
     // Declared as static to avoid dependency injection in the Example app. So this variable is available everywhere.
-    static var configuration: ExampleScreenConfiguration = ExampleConfiguration()
+    @MainActor static var configuration: ExampleScreenConfiguration = ExampleConfiguration()
 
 }

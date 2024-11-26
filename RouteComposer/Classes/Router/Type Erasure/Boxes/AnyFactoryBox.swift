@@ -30,7 +30,7 @@ protocol PreparableAnyFactory: AnyFactory, PreparableEntity {
 
 extension AnyFactoryBox {
 
-    mutating func scrapeChildren(from factories: [(factory: AnyFactory, context: AnyContext)]) throws -> [(factory: AnyFactory, context: AnyContext)] {
+    @MainActor mutating func scrapeChildren(from factories: [(factory: AnyFactory, context: AnyContext)]) throws -> [(factory: AnyFactory, context: AnyContext)] {
         factories
     }
 
@@ -38,7 +38,7 @@ extension AnyFactoryBox {
 
 extension AnyFactoryBox where Self: PreparableAnyFactory, Self: MainThreadChecking {
 
-    mutating func prepare(with context: AnyContext) throws {
+    @MainActor mutating func prepare(with context: AnyContext) throws {
         assertIfNotMainThread()
         let typedContext: FactoryType.Context = try context.value()
         try factory.prepare(with: typedContext)

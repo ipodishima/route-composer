@@ -32,6 +32,6 @@ public protocol CustomContainerViewController: ContainerViewController {
     // MARK: Properties to implement
 
     /// `ContainerAdapter` to be provided by `DefaultContainerAdapterLocator`
-    var adapter: ContainerAdapter { get }
+    @MainActor var adapter: ContainerAdapter { get }
 
 }

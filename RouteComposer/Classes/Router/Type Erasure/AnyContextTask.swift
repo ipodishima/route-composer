@@ -15,8 +15,8 @@ import UIKit
 
 protocol AnyContextTask {
 
-    mutating func prepare(with context: AnyContext) throws
+    @MainActor mutating func prepare(with context: AnyContext) throws
 
-    func perform(on viewController: UIViewController, with context: AnyContext) throws
+    @MainActor func perform(on viewController: UIViewController, with context: AnyContext) throws
 
 }

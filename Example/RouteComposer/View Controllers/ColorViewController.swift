@@ -14,7 +14,7 @@ import Foundation
 import RouteComposer
 import UIKit
 
-class ColorViewControllerFinder: StackIteratingFinder {
+@MainActor class ColorViewControllerFinder: StackIteratingFinder {
 
     typealias ViewController = ColorViewController
 

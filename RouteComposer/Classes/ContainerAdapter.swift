@@ -29,11 +29,11 @@ public protocol ContainerAdapter {
     // MARK: Properties to implement
 
     /// All `UIViewController` instances that adapting `ContainerViewController` currently has in the stack
-    var containedViewControllers: [UIViewController] { get }
+    @MainActor var containedViewControllers: [UIViewController] { get }
 
     /// The `UIViewController` instances out of the `containedViewControllers` that are currently visible on the screen
     /// The `visibleViewControllers` are the subset of the `containedViewControllers`.
-    var visibleViewControllers: [UIViewController] { get }
+    @MainActor var visibleViewControllers: [UIViewController] { get }
 
     // MARK: Methods to implement
 
@@ -45,7 +45,7 @@ public protocol ContainerAdapter {
     /// - Parameters:
     ///   - viewController: The `UIViewController` to make active (visible).
     ///   - animated: If `ContainerViewController` is able to do so - make container active animated or not.
-    func makeVisible(_ viewController: UIViewController, animated: Bool, completion: @escaping (_: RoutingResult) -> Void)
+    @MainActor func makeVisible(_ viewController: UIViewController, animated: Bool, completion: @escaping (_: RoutingResult) -> Void)
 
     /// Each container view controller adapter should implement this method for the `Router` to know how to replace all the
     /// view controllers in this particular container view controller.
@@ -55,7 +55,7 @@ public protocol ContainerAdapter {
     /// - Parameters:
     ///   - containedViewControllers: A `UIViewController` instances to replace.
     ///   - animated: If `ContainerViewController` is able to do so - replace contained view controllers animated or not.
-    func setContainedViewControllers(_ containedViewControllers: [UIViewController], animated: Bool, completion: @escaping (_: RoutingResult) -> Void)
+    @MainActor func setContainedViewControllers(_ containedViewControllers: [UIViewController], animated: Bool, completion: @escaping (_: RoutingResult) -> Void)
 
 }
 
@@ -67,7 +67,7 @@ public extension ContainerAdapter {
     ///
     /// - Parameter viewController: `UIViewController` instance
     /// - Returns: `true` if present, `false` otherwise.
-    func contains(_ viewController: UIViewController) -> Bool {
+    @MainActor func contains(_ viewController: UIViewController) -> Bool {
         containedViewControllers.contains(viewController)
     }
 
@@ -75,7 +75,7 @@ public extension ContainerAdapter {
     ///
     /// - Parameter viewController: `UIViewController` instance
     /// - Returns: `true` if present, `false` otherwise.
-    func isVisible(_ viewController: UIViewController) -> Bool {
+    @MainActor func isVisible(_ viewController: UIViewController) -> Bool {
         visibleViewControllers.contains(viewController)
     }
 

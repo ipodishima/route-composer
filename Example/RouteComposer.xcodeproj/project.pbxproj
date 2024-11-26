@@ -1175,10 +1175,13 @@
 			baseConfigurationReference = EE3371C14DEE61C1E517B2F9 /* Pods-RouteComposer_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = RouteComposer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "ie.ekazaev.RouteComposer-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_STRICT_CONCURRENCY = complete;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1188,10 +1191,13 @@
 			baseConfigurationReference = E7AC8603E217ACA9BCF1FAC2 /* Pods-RouteComposer_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = RouteComposer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "ie.ekazaev.RouteComposer-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_STRICT_CONCURRENCY = complete;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

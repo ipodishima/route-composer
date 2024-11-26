@@ -14,6 +14,6 @@ import Foundation
 
 public protocol ImagesControllerDelegate: AnyObject {
 
-    func didSelect(imageID: String, in controller: ImagesViewController)
+    @MainActor func didSelect(imageID: String, in controller: ImagesViewController)
 
 }

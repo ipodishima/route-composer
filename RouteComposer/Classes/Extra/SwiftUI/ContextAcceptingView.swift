@@ -34,14 +34,14 @@ public protocol ContextAcceptingView {
     ///
     /// - Parameter context: `Context` instance.
     /// - Throws: throws `Error` if `Context` instance is not supported.
-    static func checkCompatibility(with context: Context) throws
+    @MainActor static func checkCompatibility(with context: Context) throws
 
     /// `ContextSettingTask` will call this method to provide the `Context` instance to the `View`
     /// that has just been build or found.
     ///
     /// - Parameter context: `Context` instance.
     /// - Throws: throws `Error` if `Context` instance is not supported. `Router` will stop building the rest of the stack in this case.
-    mutating func setup(with context: Context) throws
+    @MainActor mutating func setup(with context: Context) throws
 
 }
 

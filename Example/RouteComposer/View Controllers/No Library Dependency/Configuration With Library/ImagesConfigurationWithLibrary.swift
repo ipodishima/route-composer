@@ -19,7 +19,7 @@ import UIKit
 
 struct ImagesConfigurationWithLibrary {
 
-    private static let imagesContainerStep = StepAssembly(
+    @MainActor private static let imagesContainerStep = StepAssembly(
         finder: ClassFinder<CustomContainerController, Any?>(),
         factory: CustomContainerFactory(delegate: ImagesWithLibraryHandler.shared))
         .using(UINavigationController.push())
@@ -28,7 +28,7 @@ struct ImagesConfigurationWithLibrary {
         .from(GeneralStep.current())
         .assemble()
 
-    static func images() -> Destination<ImagesViewController, Any?> {
+    @MainActor static func images() -> Destination<ImagesViewController, Any?> {
         let imagesStep = StepAssembly(
             finder: ClassFinder(),
             factory: ImagesFactory(delegate: ImagesWithLibraryHandler.shared))
@@ -38,7 +38,7 @@ struct ImagesConfigurationWithLibrary {
         return Destination(to: imagesStep)
     }
 
-    static func imageDetails(for imageID: String) -> Destination<ImageDetailsViewController, String> {
+    @MainActor static func imageDetails(for imageID: String) -> Destination<ImageDetailsViewController, String> {
         let imageDetailsStep = StepAssembly(
             finder: ClassFinder(),
             factory: ImageDetailsFactory(delegate: ImagesWithLibraryHandler.shared))

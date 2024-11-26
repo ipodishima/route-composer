@@ -18,7 +18,7 @@ import os.log
 import RouteComposer
 import UIKit
 
-class ImagesWithLibraryHandler: CustomViewControllerDelegate, ImagesControllerDelegate, ImageDetailsControllerDelegate {
+@MainActor class ImagesWithLibraryHandler: CustomViewControllerDelegate, ImagesControllerDelegate, ImageDetailsControllerDelegate {
 
     static let shared = ImagesWithLibraryHandler()
 

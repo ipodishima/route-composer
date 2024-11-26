@@ -14,7 +14,7 @@ import Foundation
 import RouteComposer
 import UIKit
 
-class ColorURLTranslator: ExampleURLTranslator {
+@MainActor class ColorURLTranslator: ExampleURLTranslator {
 
     func destination(from url: URL) -> AnyDestination? {
         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),

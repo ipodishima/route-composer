@@ -24,7 +24,7 @@ public protocol ContextInstantiatable where Self: View {
     associatedtype Context
 
     /// Constructor
-    init(with context: Context)
+    @MainActor init(with context: Context)
 
 }
 
@@ -32,7 +32,7 @@ public protocol ContextInstantiatable where Self: View {
 public extension ContextInstantiatable where Context == Void {
 
     /// Constructor
-    init() {
+    @MainActor init() {
         self.init(with: ())
     }
 
@@ -42,7 +42,7 @@ public extension ContextInstantiatable where Context == Void {
 public extension ContextInstantiatable where Context == Any? {
 
     /// Constructor
-    init() {
+    @MainActor init() {
         self.init(with: nil)
     }
 

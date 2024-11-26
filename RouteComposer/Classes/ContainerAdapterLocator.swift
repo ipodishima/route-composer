@@ -22,6 +22,6 @@ public protocol ContainerAdapterLocator {
     /// - Parameter containerViewController: The `ContainerViewController` instance
     /// - Returns: Suitable `ContainerAdapter` instance
     /// - Throws: `RoutingError` if the suitable `ContainerAdapter` can not be provided
-    func getAdapter(for containerViewController: ContainerViewController) throws -> ContainerAdapter
+    @MainActor func getAdapter(for containerViewController: ContainerViewController) throws -> ContainerAdapter
 
 }

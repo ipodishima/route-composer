@@ -15,7 +15,7 @@ import UIKit
 
 protocol StepCaseResolver {
 
-    func resolve(with context: AnyContext) -> RoutingStep?
+    @MainActor func resolve(with context: AnyContext) -> RoutingStep?
 
 }
 

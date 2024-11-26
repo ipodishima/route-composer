@@ -77,7 +77,7 @@ struct ContainerActionBox<A: ContainerAction>: AnyAction, AnyActionBox, CustomSt
         }
     }
 
-    private func embed(viewController: UIViewController, with postponedIntegrationHandler: PostponedActionIntegrationHandler, completion: @escaping (RoutingResult) -> Void) {
+    @MainActor private func embed(viewController: UIViewController, with postponedIntegrationHandler: PostponedActionIntegrationHandler, completion: @escaping (RoutingResult) -> Void) {
         do {
             var postponedChildControllers = postponedIntegrationHandler.postponedViewControllers
             try perform(embedding: viewController, in: &postponedChildControllers)

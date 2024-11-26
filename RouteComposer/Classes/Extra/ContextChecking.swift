@@ -27,6 +27,6 @@ public protocol ContextChecking {
     /// context data or is willing to do so, then it should return `true` or `false` if not.
     /// - Parameters:
     ///     - context: The `Context` instance provided to the `Router`
-    func isTarget(for context: Context) -> Bool
+    @MainActor func isTarget(for context: Context) -> Bool
 
 }

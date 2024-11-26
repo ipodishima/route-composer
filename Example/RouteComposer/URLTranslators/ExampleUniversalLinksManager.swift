@@ -18,13 +18,13 @@ import UIKit
 // transforming data that is contained in the `URL` into `AnyDestination` instance.
 struct ExampleUniversalLinksManager {
 
-    private static var translators: [ExampleURLTranslator] = []
+    @MainActor private static var translators: [ExampleURLTranslator] = []
 
-    static func register(translator: ExampleURLTranslator) {
+    @MainActor static func register(translator: ExampleURLTranslator) {
         translators.append(translator)
     }
 
-    static func destination(for url: URL) -> AnyDestination? {
+    @MainActor static func destination(for url: URL) -> AnyDestination? {
         guard let translator = translators.first(where: { $0.destination(from: url) != nil }) else {
             return nil
         }
@@ -36,7 +36,7 @@ struct ExampleUniversalLinksManager {
 
 extension ExampleUniversalLinksManager {
 
-    static func configure() {
+    @MainActor static func configure() {
         ExampleUniversalLinksManager.register(translator: ColorURLTranslator())
         ExampleUniversalLinksManager.register(translator: ProductURLTranslator())
         ExampleUniversalLinksManager.register(translator: CityURLTranslator())

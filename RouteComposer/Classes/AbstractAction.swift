@@ -34,9 +34,9 @@ public protocol AbstractAction {
     ///     will appear on the top of the stack.
     ///
     /// NB: completion MUST be called in the implementation.
-    func perform(with viewController: UIViewController,
-                 on existingController: ViewController,
-                 animated: Bool,
-                 completion: @escaping (_: RoutingResult) -> Void)
+    @MainActor func perform(with viewController: UIViewController,
+                            on existingController: ViewController,
+                            animated: Bool,
+                            completion: @escaping (_: RoutingResult) -> Void)
 
 }

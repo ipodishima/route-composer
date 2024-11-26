@@ -38,7 +38,7 @@ public protocol ContainerFactory: AbstractFactory where ViewController: Containe
     ///   - coordinator: A `ChildCoordinator` instance.
     /// - Returns: The built `UIViewController` instance with the children view controller inside.
     /// - Throws: The `RoutingError` if build did not succeed.
-    func build(with context: Context, integrating coordinator: ChildCoordinator) throws -> ViewController
+    @MainActor func build(with context: Context, integrating coordinator: ChildCoordinator) throws -> ViewController
 
 }
 
@@ -56,12 +56,12 @@ public extension ContainerFactory {
 public extension ContainerFactory {
 
     /// Builds a `ContainerFactory` view controller.
-    func build(with context: Context) throws -> ViewController {
+    @MainActor func build(with context: Context) throws -> ViewController {
         try build(with: context, integrating: ChildCoordinator(childFactories: []))
     }
 
     /// Prepares the `Factory` and builds its `UIViewController`
-    func execute(with context: Context) throws -> ViewController {
+    @MainActor func execute(with context: Context) throws -> ViewController {
         var factory = self
         try factory.prepare(with: context)
         return try factory.build(with: context)
@@ -74,12 +74,12 @@ public extension ContainerFactory {
 public extension ContainerFactory where Context == Any? {
 
     /// Builds a `ContainerFactory` view controller.
-    func build() throws -> ViewController {
+    @MainActor func build() throws -> ViewController {
         try build(with: nil)
     }
 
     /// Prepares the `Factory` and builds its `UIViewController`
-    func execute() throws -> ViewController {
+    @MainActor func execute() throws -> ViewController {
         var factory = self
         try factory.prepare()
         return try factory.build()
@@ -92,12 +92,12 @@ public extension ContainerFactory where Context == Any? {
 public extension ContainerFactory where Context == Void {
 
     /// Builds a `ContainerFactory` view controller.
-    func build() throws -> ViewController {
+    @MainActor func build() throws -> ViewController {
         try build(with: ())
     }
 
     /// Prepares the `Factory` and builds its `UIViewController`
-    func execute() throws -> ViewController {
+    @MainActor func execute() throws -> ViewController {
         var factory = self
         try factory.prepare()
         return try factory.build()

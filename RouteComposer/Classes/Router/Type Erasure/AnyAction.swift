@@ -15,30 +15,30 @@ import UIKit
 
 protocol PostponedActionIntegrationHandler: AnyObject {
 
-    var containerViewController: ContainerViewController? { get }
+    @MainActor var containerViewController: ContainerViewController? { get }
 
-    var postponedViewControllers: [UIViewController] { get }
+    @MainActor var postponedViewControllers: [UIViewController] { get }
 
-    func update(containerViewController: ContainerViewController, animated: Bool, completion: @escaping (_: RoutingResult) -> Void)
+    @MainActor func update(containerViewController: ContainerViewController, animated: Bool, completion: @escaping (_: RoutingResult) -> Void)
 
-    func update(postponedViewControllers: [UIViewController])
+    @MainActor func update(postponedViewControllers: [UIViewController])
 
-    func purge(animated: Bool, completion: @escaping (_: RoutingResult) -> Void)
+    @MainActor func purge(animated: Bool, completion: @escaping (_: RoutingResult) -> Void)
 
 }
 
 protocol AnyAction {
 
-    func perform(with viewController: UIViewController,
-                 on existingController: UIViewController,
-                 with postponedIntegrationHandler: PostponedActionIntegrationHandler,
-                 nextAction: AnyAction?,
-                 animated: Bool,
-                 completion: @escaping (_: RoutingResult) -> Void)
+    @MainActor func perform(with viewController: UIViewController,
+                            on existingController: UIViewController,
+                            with postponedIntegrationHandler: PostponedActionIntegrationHandler,
+                            nextAction: AnyAction?,
+                            animated: Bool,
+                            completion: @escaping (_: RoutingResult) -> Void)
 
-    func perform(embedding viewController: UIViewController,
-                 in childViewControllers: inout [UIViewController]) throws
+    @MainActor func perform(embedding viewController: UIViewController,
+                            in childViewControllers: inout [UIViewController]) throws
 
-    func isEmbeddable(to container: ContainerViewController.Type) -> Bool
+    @MainActor func isEmbeddable(to container: ContainerViewController.Type) -> Bool
 
 }

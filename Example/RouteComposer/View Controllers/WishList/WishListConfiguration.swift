@@ -14,7 +14,7 @@ import Foundation
 import RouteComposer
 import UIKit
 
-struct WishListConfiguration {
+@MainActor struct WishListConfiguration {
     static let wishListScreen = StepAssembly(
         finder: ClassFinder<WishListViewController, WishListContext>(),
         factory: StoryboardFactory(name: "TabBar", identifier: "WishListViewController"))

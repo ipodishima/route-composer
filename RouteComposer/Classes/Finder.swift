@@ -31,7 +31,7 @@ public protocol Finder {
     ///
     /// - Parameter context: The `Context` instance passed to the `Router`.
     /// - Returns: The `UIViewController` instance that the `Router` is looking for, nil otherwise.
-    func findViewController(with context: Context) throws -> ViewController?
+    @MainActor func findViewController(with context: Context) throws -> ViewController?
 
 }
 
@@ -44,7 +44,7 @@ public extension Finder {
     ///
     /// - Parameter context: The `Context` instance passed to the `Router`.
     /// - Returns: The `UIViewController` instance that the `Router` is looking for, nil otherwise.
-    func getViewController(with context: Context) -> ViewController? {
+    @MainActor func getViewController(with context: Context) -> ViewController? {
         guard let viewController = try? findViewController(with: context) else {
             return nil
         }
@@ -61,7 +61,7 @@ public extension Finder where Context == Any? {
     /// Returns the view controller instance if it is present in the stack.
     ///
     /// - Returns: The `UIViewController` instance that the `Router` is looking for, nil otherwise.
-    func findViewController() throws -> ViewController? {
+    @MainActor func findViewController() throws -> ViewController? {
         try findViewController(with: nil)
     }
 
@@ -69,7 +69,7 @@ public extension Finder where Context == Any? {
     /// can not be performed.
     ///
     /// - Returns: The `UIViewController` instance that the `Router` is looking for, nil otherwise.
-    func getViewController() -> ViewController? {
+    @MainActor func getViewController() -> ViewController? {
         getViewController(with: nil)
     }
 
@@ -82,7 +82,7 @@ public extension Finder where Context == Void {
     /// Returns the view controller instance if it is present in the stack.
     ///
     /// - Returns: The `UIViewController` instance that the `Router` is looking for, nil otherwise.
-    func findViewController() throws -> ViewController? {
+    @MainActor func findViewController() throws -> ViewController? {
         try findViewController(with: ())
     }
 
@@ -90,7 +90,7 @@ public extension Finder where Context == Void {
     /// can not be performed.
     ///
     /// - Returns: The `UIViewController` instance that the `Router` is looking for, nil otherwise.
-    func getViewController() -> ViewController? {
+    @MainActor func getViewController() -> ViewController? {
         getViewController(with: ())
     }
 

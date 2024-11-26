@@ -14,7 +14,7 @@ import Foundation
 
 class CitiesDataModel {
 
-    static var cities = [
+    @MainActor static var cities = [
         (cityId: 1, city: "Dublin", description: "Dublin, capital of the Republic of Ireland, is on Ireland’s east " +
             "coast at the mouth of the River Liffey. Its historic buildings include Dublin Castle, dating to the" +
             " 13th century, and imposing St Patrick’s Cathedral, founded in 1191. City parks include landscaped " +

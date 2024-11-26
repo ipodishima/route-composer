@@ -18,7 +18,7 @@ import SwiftUI
 
 // NB: This view exists for the demo purposes only.
 @available(iOS 13.0.0, *)
-struct SwiftUIContentView: View, ContextInstantiatable, ContextChecking, ContextAcceptingView {
+@MainActor struct SwiftUIContentView: View, ContextInstantiatable, ContextChecking, ContextAcceptingView {
 
     @State private var context: String = ""
 

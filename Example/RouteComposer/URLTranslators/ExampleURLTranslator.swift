@@ -16,6 +16,6 @@ import UIKit
 
 protocol ExampleURLTranslator {
 
-    func destination(from url: URL) -> AnyDestination?
+    @MainActor func destination(from url: URL) -> AnyDestination?
 
 }

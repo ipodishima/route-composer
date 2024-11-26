@@ -15,6 +15,6 @@ import UIKit
 
 protocol ExampleAnalyticsSupport {
 
-    var screenType: ExampleScreenTypes { get }
+    @MainActor var screenType: ExampleScreenTypes { get }
 
 }

@@ -14,6 +14,6 @@ import Foundation
 
 public protocol ImageDetailsControllerDelegate: AnyObject {
 
-    func dismiss(imageDetails: ImageDetailsViewController)
+    @MainActor func dismiss(imageDetails: ImageDetailsViewController)
 
 }

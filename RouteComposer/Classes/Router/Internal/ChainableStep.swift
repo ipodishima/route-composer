@@ -19,6 +19,6 @@ import UIKit
 protocol ChainableStep {
 
     // `RoutingStep` to be made by a `Router` before getting to this step.
-    func getPreviousStep(with context: AnyContext) -> RoutingStep?
+    @MainActor func getPreviousStep(with context: AnyContext) -> RoutingStep?
 
 }

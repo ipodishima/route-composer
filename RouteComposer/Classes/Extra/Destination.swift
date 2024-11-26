@@ -42,7 +42,7 @@ public struct Destination<VC: UIViewController, C> {
     }
 
     /// Transforms into generic representation without information about types.
-    public func unwrapped() -> AnyDestination {
+    @MainActor public func unwrapped() -> AnyDestination {
         AnyDestination(to: step.unsafelyRewrapped(), with: context)
     }
 

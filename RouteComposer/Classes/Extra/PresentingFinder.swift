@@ -47,8 +47,8 @@ public struct PresentingFinder<C>: Finder {
     /// - Parameters:
     ///   - windowProvider: `WindowProvider` instance.
     ///   - startingPoint: `DefaultStackIterator.StartingPoint` value
-    public init(windowProvider: WindowProvider = RouteComposerDefaults.shared.windowProvider,
-                startingPoint: StartingPoint = .topmost) {
+    @MainActor public init(windowProvider: WindowProvider = RouteComposerDefaults.shared.windowProvider,
+                           startingPoint: StartingPoint = .topmost) {
         self.windowProvider = windowProvider
         self.startingPoint = startingPoint
     }
@@ -57,7 +57,7 @@ public struct PresentingFinder<C>: Finder {
         try getStartingViewController()?.presentingViewController
     }
 
-    func getStartingViewController() throws -> UIViewController? {
+    @MainActor func getStartingViewController() throws -> UIViewController? {
         switch startingPoint {
         case .topmost:
             return windowProvider.window?.topmostViewController
