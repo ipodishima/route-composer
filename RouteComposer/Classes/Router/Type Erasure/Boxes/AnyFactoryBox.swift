@@ -36,10 +36,9 @@ extension AnyFactoryBox {
 
 }
 
-extension AnyFactoryBox where Self: PreparableAnyFactory, Self: MainThreadChecking {
+extension AnyFactoryBox where Self: PreparableAnyFactory {
 
     @MainActor mutating func prepare(with context: AnyContext) throws {
-        assertIfNotMainThread()
         let typedContext: FactoryType.Context = try context.value()
         try factory.prepare(with: typedContext)
         isPrepared = true
