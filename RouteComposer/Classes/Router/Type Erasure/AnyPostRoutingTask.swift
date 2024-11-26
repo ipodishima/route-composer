@@ -15,6 +15,7 @@ import UIKit
 
 protocol AnyPostRoutingTask {
 
+    @MainActor
     func perform(on viewController: UIViewController,
                  with context: AnyContext,
                  routingStack: [UIViewController]) throws

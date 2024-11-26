@@ -21,6 +21,7 @@ struct PostRoutingTaskBox<PT: PostRoutingTask>: AnyPostRoutingTask, MainThreadCh
         self.postRoutingTask = postRoutingTask
     }
 
+    @MainActor
     func perform(on viewController: UIViewController,
                  with context: AnyContext,
                  routingStack: [UIViewController]) throws {

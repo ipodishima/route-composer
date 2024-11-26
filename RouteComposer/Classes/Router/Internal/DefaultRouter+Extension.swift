@@ -103,6 +103,7 @@ extension DefaultRouter {
             postponedRunner.add(postTasks: postTasks, to: viewController, context: context)
         }
 
+        @MainActor
         func commit() throws {
             try postponedRunner.perform()
         }
@@ -165,6 +166,7 @@ extension DefaultRouter {
             }
         }
 
+        @MainActor
         final func perform() throws {
             var viewControllers: [UIViewController] = []
             taskSlips.forEach {
@@ -215,10 +217,12 @@ extension DefaultRouter {
             return StepTaskTaskRunner(contextTaskRunner: contextTaskRunner, postTaskRunner: postTaskRunner, context: context)
         }
 
-        @MainActor final func performInterceptors(completion: @escaping (_: RoutingResult) -> Void) {
+        @MainActor
+        final func performInterceptors(completion: @escaping (_: RoutingResult) -> Void) {
             interceptorRunner.perform(completion: completion)
         }
 
+        @MainActor
         final func performPostTasks() throws {
             try postTaskRunner.commit()
         }
